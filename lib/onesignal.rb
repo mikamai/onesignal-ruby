@@ -6,10 +6,18 @@ require 'onesignal/version'
 require 'onesignal/extra'
 
 module OneSignal
-  def send_notification notification
-    app_id = ENV['ONESIGNAL_APP_ID']
-    api_key = ENV['ONESIGNAL_API_KEY']
-    Client.new(app_id, api_key).create_notification notification
+  class << self
+    def define
+      yield config
+    end
+
+    def send_notification notification
+      Client.new(config.app_id, config.api_key, config.api_url).create_notification notification
+    end
+
+    def config
+      @config ||= Configuration.new
+    end
   end
 end
 
