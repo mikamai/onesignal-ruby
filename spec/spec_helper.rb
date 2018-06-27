@@ -5,6 +5,7 @@ require 'vcr'
 require 'onesignal'
 require 'support/factory_bot'
 require 'faker'
+require 'dotenv/load'
 
 SPEC_ROOT = __dir__
 

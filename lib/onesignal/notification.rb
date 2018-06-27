@@ -22,7 +22,7 @@ module OneSignal
     end
 
     def as_json options = {}
-      super(options).reject { |_k, v| v.nil? }
+      super(options).select { |_k, v| v.present? }
     end
   end
 end
