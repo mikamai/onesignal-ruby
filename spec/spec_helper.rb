@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'onesignal'
 require 'vcr'
+require 'onesignal'
+require 'support/factory_bot'
+require 'faker'
 
 SPEC_ROOT = __dir__
 
