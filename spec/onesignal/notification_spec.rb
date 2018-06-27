@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'onesignal'
 include OneSignal
 
 describe Notification do
@@ -13,27 +12,32 @@ describe Notification do
   end
 
   it 'creates a new notification' do
-    expect(described_class.new(contents: contents, headings: headings)).to be_instance_of Notification
+    expect(described_class.new(contents: contents, headings: headings, send_after: Time.now)).to be_instance_of Notification
   end
 
   context 'json' do
-    subject { build :notification }
+    let(:segments) { [build(:segment), build(:segment)] }
+    let(:time) { Time.now }
+    subject do
+      Notification.new(contents: contents,
+                               headings: headings,
+                               send_after: time,
+                               included_segments: segments,
+                               excluded_segments: segments)
+    end
 
     it 'serializes as json' do
       expect(subject.as_json).to include(
         'contents' => {
-          'en' => subject.contents.en
+          'en' => contents.en
         },
         'headings' => {
-          'en' => subject.headings.en
-        }
+          'en' => headings.en
+        },
+        'send_after' => time.to_s,
+        'included_segments' => segments.map(&:to_s),
+        'excluded_segments' => segments.map(&:to_s)
       )
-    end
-
-    it 'serializes to json' do
-      result = "{\"contents\":{\"en\":\"#{subject.contents.en}\"},"\
-                "\"headings\":{\"en\":\"#{subject.headings.en}\"}}"
-      expect(subject.to_json).to eq result
     end
   end
 end

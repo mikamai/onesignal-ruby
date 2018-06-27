@@ -10,6 +10,13 @@ FactoryBot.define do
   end
 
   factory :notification, class: OneSignal::Notification do
-    initialize_with { new(contents: build(:contents), headings: build(:headings)) }
+    initialize_with do
+      new(
+        contents: build(:contents),
+        headings: build(:headings),
+        included_segments: [build(:segment), build(:segment)],
+        excluded_segments: [build(:segment), build(:segment)]
+      )
+    end
   end
 end
