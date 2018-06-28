@@ -43,4 +43,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'activesupport'
   spec.add_runtime_dependency 'faraday'
+  spec.add_runtime_dependency 'simple_command', '~> 0.0.9'
 end

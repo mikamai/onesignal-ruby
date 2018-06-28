@@ -12,6 +12,7 @@ PATH
     onesignal-ruby (0.1.0)
       activesupport
       faraday
+      simple_command (~> 0.0.9)
 
 GEM
   remote: https://rubygems.org/
@@ -53,6 +54,7 @@ GEM
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
     safe_yaml (1.0.4)
+    simple_command (0.0.9)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)

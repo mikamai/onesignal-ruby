@@ -4,21 +4,29 @@ require 'active_support/core_ext/string/inflections'
 require 'active_support/json'
 require 'onesignal/version'
 require 'onesignal/extra'
+require 'onesignal/commands'
 
 module OneSignal
-  class << self
-    def define
-      yield config
-    end
+  include Commands
 
-    def send_notification notification
-      Client.new(config.app_id, config.api_key, config.api_url).create_notification notification
-    end
+  def self.define
+    yield config
+  end
 
-    def config
-      @config ||= Configuration.new
-    end
+  def self.send_notification notification
+    created = CreateNotification.call notification
+    fetch_notification(JSON.parse(created.body)['id'])
+  end
+
+  def self.fetch_notification notification_id
+    fetched = FetchNotification.call notification_id
+    Responses::Notification.from_json(fetched.body)
+  end
+
+  def self.config
+    @config ||= Configuration.new
   end
 end
 
 require 'onesignal/autoloader'
+require 'onesignal/responses/notification'

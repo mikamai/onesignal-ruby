@@ -21,6 +21,10 @@ module OneSignal
       post 'notifications', notification
     end
 
+    def fetch_notification notification_id
+      get "notifications/#{notification_id}"
+    end
+
     private
 
     def create_body payload
@@ -32,8 +36,15 @@ module OneSignal
     def post url, body
       @conn.post do |req|
         req.url url
-        create_body =
         req.body = create_body(body).to_json
+        req.headers['Content-Type'] = 'application/json'
+        req.headers['Authorization'] = "Basic #{@api_key}"
+      end
+    end
+
+    def get url
+      @conn.get do |req|
+        req.url url, app_id: @app_id
         req.headers['Content-Type'] = 'application/json'
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
