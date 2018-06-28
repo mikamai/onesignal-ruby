@@ -15,12 +15,25 @@ describe 'Live API Testing', remote: true do
 
   let(:notification) do
     Notification.new(contents: Notification::Contents.new(en: 'Live Test'),
-                     headings: Notification::Headings.new(en: 'This is a live test for OneSignal::Ruby'),
+                     headings: Notification::Headings.new(en: 'This is a live test for OneSignal'),
                      included_segments: ['Test Users'])
   end
 
+  let(:notification_id) { 'fe82c1ae-54c2-458b-8aad-7edc3e8a96c4' }
+
   it 'sends a notification' do
-    response = OneSignal.send_notification notification
-    expect(response.status).to eq 200
+    VCR.use_cassette('onesignal') do
+      response = OneSignal.send_notification notification
+      expect(response).to be_instance_of OneSignal::Responses::Notification
+      expect(response.id).to eq notification_id
+    end
+  end
+
+  it 'fetches a notification' do
+    VCR.use_cassette('onesignal') do
+      response = OneSignal.fetch_notification notification_id
+      expect(response).to be_instance_of OneSignal::Responses::Notification
+      expect(response.id).to eq notification_id
+    end
   end
 end

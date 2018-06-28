@@ -28,12 +28,20 @@ module OneSignal
     #   }
     # }
     class Notification
-      auto_attr_reader :id, :successful, :failed, :converted, :remaining,
-                       :queued_at, :send_after, :completed_at, :url, :data,
-                       :canceled, :headings, :contents
+      ATTRIBUTES_WHITELIST = %i[id successful failed converted remaining
+                                queued_at send_after completed_at url data
+                                canceled headings contents].freeze
+
+      auto_attr_reader(*ATTRIBUTES_WHITELIST)
 
       def initialize attributes = {}
-        @attributes = attributes
+        @attributes = attributes.deep_symbolize_keys
+                                .keep_if { |k, _v| ATTRIBUTES_WHITELIST.include?(k.to_sym) }
+      end
+
+      def self.from_json json
+        body = json.is_a?(String) ? JSON.parse(json) : json
+        new(body)
       end
     end
   end
