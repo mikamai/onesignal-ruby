@@ -16,7 +16,7 @@ describe 'Live API Testing', remote: true do
   let(:notification) do
     Notification.new(contents: Notification::Contents.new(en: 'Live Test'),
                      headings: Notification::Headings.new(en: 'This is a live test for OneSignal'),
-                     included_segments: ['Active Users'])
+                     included_segments: ['Test Users'])
   end
 
   it 'sends a notification' do
