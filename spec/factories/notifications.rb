@@ -16,6 +16,7 @@ FactoryBot.define do
   factory :notification, class: OneSignal::Notification do
     contents
     headings
+    attachments { build :attachments }
     included_segments { [build(:segment), build(:segment)] }
     excluded_segments { [build(:segment), build(:segment)] }
     send_after { Time.now }

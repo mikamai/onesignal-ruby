@@ -18,6 +18,7 @@ describe Notification do
   context 'json' do
     let(:segments) { [build(:segment), build(:segment)] }
     let(:time) { Time.now }
+
     subject do
       build :notification,
             contents: contents,
@@ -37,7 +38,13 @@ describe Notification do
         },
         'send_after' => time.to_s,
         'included_segments' => segments.map(&:to_s),
-        'excluded_segments' => segments.map(&:to_s)
+        'excluded_segments' => segments.map(&:to_s),
+        'data' => subject.attachments.data.stringify_keys,
+        'url' => subject.attachments.url,
+        'ios_attachments' => subject.attachments.ios_attachments.stringify_keys,
+        'big_picture' => subject.attachments.android_picture,
+        'adm_big_picture' => subject.attachments.amazon_picture,
+        'chrome_big_picture' => subject.attachments.chrome_picture
       )
     end
   end

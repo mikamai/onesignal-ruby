@@ -23,10 +23,6 @@ module OneSignal
     Responses::Notification.from_json fetched.body
   end
 
-  def self.config
-    @config ||= Configuration.new
-  end
-
   def self.fetch_player player_id
     fetched = FetchPlayer.call player_id
     Responses::Player.from_json fetched.body
@@ -35,6 +31,10 @@ module OneSignal
   def self.fetch_players
     fetched = FetchPlayers.call
     JSON.parse(fetched.body)['players'].map { |player| Responses::Player.from_json player }
+  end
+
+  def self.config
+    @config ||= Configuration.new
   end
 end
 
