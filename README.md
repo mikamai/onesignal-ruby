@@ -87,6 +87,35 @@ contents      # Map of locales to content strings
 response.id # => fe82c1ae-54c2-458b-8aad-7edc3e8a96c4
 ```
 
+### Attachments
+You can add files, data or images to a notification, or an external URL to open.
+```ruby
+  attachments = OneSignal::Attachments.new(
+        data:            { 'test' => 'test' },
+        url:             'http://example.com',
+        ios_attachments: { 'something' => 'drawable resource name or URL.' },
+        android_picture: 'drawable resource name or URL.',
+        amazon_picture:  'drawable resource name or URL.',
+        chrome_picture:  'drawable resource name or URL.'
+  )
+  
+  OneSignal::Notification.new(attachments: attachments)
+```
+
+### Fetch players
+You can fetch all players and devices with a simple method.
+
+```ruby
+players = OneSignal.fetch_players
+# => Array of OneSignal::Responses::Player
+```
+
+Or you can fetch a single player by its ID.
+```ruby
+player = OneSignal.fetch_player(player_id)
+# => #<OneSignal::Responses::Player>
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
