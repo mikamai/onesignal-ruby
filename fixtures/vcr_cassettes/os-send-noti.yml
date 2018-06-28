@@ -24,7 +24,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 28 Jun 2018 09:42:05 GMT
+      - Thu, 28 Jun 2018 15:30:57 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -32,8 +32,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d0d96f436764a214e53205711f4aa02001530178924; expires=Fri, 28-Jun-19
-        09:42:04 GMT; path=/; domain=.onesignal.com; HttpOnly
+      - __cfduid=daaa29327ffbbadef32c14c4f68e2ddcc1530199857; expires=Fri, 28-Jun-19
+        15:30:57 GMT; path=/; domain=.onesignal.com; HttpOnly
       Status:
       - 200 OK
       Cache-Control:
@@ -43,15 +43,15 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       X-Request-Id:
-      - 8201a515-c764-4dbf-b99f-a4c0621c5e3f
+      - 12e56155-1b2a-4ae2-9c43-959cf76d1219
       Access-Control-Allow-Headers:
       - SDK-Version
       Etag:
-      - W/"ef5b4130aaa5c100eb66a3752be97f6c"
+      - W/"dcc6500f0081d2c4c38f7f6490657d92"
       X-Frame-Options:
       - SAMEORIGIN
       X-Runtime:
-      - '0.044136'
+      - '0.067198'
       X-Content-Type-Options:
       - nosniff
       X-Powered-By:
@@ -61,15 +61,15 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 431f3388beb03d89-MXP
+      - 432132947a73430a-MXP
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"fe82c1ae-54c2-458b-8aad-7edc3e8a96c4","recipients":1}'
+      string: '{"id":"29e9c2ad-41da-46f0-94c3-e71ee5c103dc","recipients":1}'
     http_version: 
-  recorded_at: Thu, 28 Jun 2018 09:42:05 GMT
+  recorded_at: Thu, 28 Jun 2018 15:30:57 GMT
 - request:
     method: get
-    uri: https://onesignal.com/api/v1/notifications/fe82c1ae-54c2-458b-8aad-7edc3e8a96c4?app_id=22bc6dec-5150-4d6d-8628-377259d2dd14
+    uri: https://onesignal.com/api/v1/notifications/29e9c2ad-41da-46f0-94c3-e71ee5c103dc?app_id=22bc6dec-5150-4d6d-8628-377259d2dd14
     body:
       encoding: US-ASCII
       string: ''
@@ -90,7 +90,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 28 Jun 2018 09:42:05 GMT
+      - Thu, 28 Jun 2018 15:30:57 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -98,8 +98,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=d9baff915eaa83e579c5edb93602155841530178925; expires=Fri, 28-Jun-19
-        09:42:05 GMT; path=/; domain=.onesignal.com; HttpOnly
+      - __cfduid=daaa29327ffbbadef32c14c4f68e2ddcc1530199857; expires=Fri, 28-Jun-19
+        15:30:57 GMT; path=/; domain=.onesignal.com; HttpOnly
       Status:
       - 200 OK
       Cache-Control:
@@ -109,15 +109,15 @@ http_interactions:
       X-Xss-Protection:
       - 1; mode=block
       X-Request-Id:
-      - 8b97752a-860c-40b8-840a-9c0139cbd678
+      - 713da936-b783-4ff4-aae6-4ec89a5e9ef7
       Access-Control-Allow-Headers:
       - SDK-Version
       Etag:
-      - W/"6767406bf9d0cc11df3d7ef8d95d786f"
+      - W/"8e772220e2df249cd3a196949cc81bfa"
       X-Frame-Options:
       - SAMEORIGIN
       X-Runtime:
-      - '0.015031'
+      - '0.016556'
       X-Content-Type-Options:
       - nosniff
       X-Powered-By:
@@ -127,19 +127,19 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Expires:
-      - Thu, 28 Jun 2018 11:42:05 GMT
+      - Thu, 28 Jun 2018 17:30:57 GMT
       Expect-Ct:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Cf-Ray:
-      - 431f338a5bbf3d8f-MXP
+      - 432132961c5b430a-MXP
     body:
       encoding: ASCII-8BIT
       string: '{"adm_big_picture":null,"adm_group":null,"adm_group_message":null,"adm_large_icon":null,"adm_small_icon":null,"adm_sound":null,"spoken_text":null,"alexa_ssml":null,"alexa_display_title":null,"amazon_background_data":null,"android_accent_color":null,"android_group":null,"android_group_message":null,"android_led_color":null,"android_sound":null,"android_visibility":null,"app_id":"22bc6dec-5150-4d6d-8628-377259d2dd14","big_picture":null,"buttons":null,"canceled":false,"chrome_big_picture":null,"chrome_icon":null,"chrome_web_icon":null,"chrome_web_image":null,"chrome_web_badge":null,"content_available":null,"contents":{"en":"Live
         Test"},"converted":0,"data":null,"delayed_option":null,"delivery_time_of_day":null,"errored":0,"excluded_segments":[],"failed":0,"firefox_icon":null,"headings":{"en":"This
-        is a live test for OneSignal"},"id":"fe82c1ae-54c2-458b-8aad-7edc3e8a96c4","include_player_ids":null,"included_segments":["Active
-        Users"],"ios_badgeCount":null,"ios_badgeType":null,"ios_category":null,"ios_sound":null,"apns_alert":null,"isAdm":false,"isAndroid":false,"isChrome":false,"isChromeWeb":false,"isAlexa":false,"isFirefox":false,"isIos":true,"isSafari":false,"isWP":false,"isWP_WNS":false,"isEdge":false,"large_icon":null,"priority":null,"queued_at":1530178925,"remaining":1,"send_after":1530178925,"completed_at":null,"small_icon":null,"successful":0,"tags":null,"filters":null,"template_id":null,"ttl":null,"url":null,"web_buttons":null,"web_push_topic":null,"wp_sound":null,"wp_wns_sound":null}'
+        is a live test for OneSignal"},"id":"29e9c2ad-41da-46f0-94c3-e71ee5c103dc","include_player_ids":null,"included_segments":["Active
+        Users"],"ios_badgeCount":null,"ios_badgeType":null,"ios_category":null,"ios_sound":null,"apns_alert":null,"isAdm":false,"isAndroid":true,"isChrome":false,"isChromeWeb":false,"isAlexa":false,"isFirefox":false,"isIos":true,"isSafari":false,"isWP":false,"isWP_WNS":false,"isEdge":false,"large_icon":null,"priority":null,"queued_at":1530199857,"remaining":1,"send_after":1530199857,"completed_at":null,"small_icon":null,"successful":0,"tags":null,"filters":null,"template_id":null,"ttl":null,"url":null,"web_buttons":null,"web_push_topic":null,"wp_sound":null,"wp_wns_sound":null}'
     http_version: 
-  recorded_at: Thu, 28 Jun 2018 09:42:05 GMT
+  recorded_at: Thu, 28 Jun 2018 15:30:57 GMT
 recorded_with: VCR 4.0.0
