@@ -19,11 +19,12 @@ describe Notification do
     let(:segments) { [build(:segment), build(:segment)] }
     let(:time) { Time.now }
     subject do
-      Notification.new(contents: contents,
-                               headings: headings,
-                               send_after: time,
-                               included_segments: segments,
-                               excluded_segments: segments)
+      build :notification,
+            contents: contents,
+            headings: headings,
+            included_segments: segments,
+            excluded_segments: segments,
+            send_after: time
     end
 
     it 'serializes as json' do

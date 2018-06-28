@@ -2,21 +2,26 @@
 
 FactoryBot.define do
   factory :contents, class: OneSignal::Notification::Contents do
-    initialize_with { new(en: Faker::Fallout.quote) }
+    en { Faker::Fallout.quote }
+
+    initialize_with { new(attributes) }
   end
 
   factory :headings, class: OneSignal::Notification::Headings do
-    initialize_with { new(en: Faker::Fallout.quote) }
+    en { Faker::Fallout.quote }
+
+    initialize_with { new(attributes) }
   end
 
   factory :notification, class: OneSignal::Notification do
+    contents
+    headings
+    included_segments { [build(:segment), build(:segment)] }
+    excluded_segments { [build(:segment), build(:segment)] }
+    send_after { Time.now }
+
     initialize_with do
-      new(
-        contents: build(:contents),
-        headings: build(:headings),
-        included_segments: [build(:segment), build(:segment)],
-        excluded_segments: [build(:segment), build(:segment)]
-      )
+      new(attributes)
     end
   end
 end

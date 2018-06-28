@@ -20,7 +20,7 @@ describe Notification::Headings do
   end
 
   context 'json' do
-    subject { build :contents }
+    subject { build :headings }
 
     it 'serializes as json' do
       expect(subject.as_json).to eq('en' => subject.en)
