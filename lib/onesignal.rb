@@ -20,13 +20,23 @@ module OneSignal
 
   def self.fetch_notification notification_id
     fetched = FetchNotification.call notification_id
-    Responses::Notification.from_json(fetched.body)
+    Responses::Notification.from_json fetched.body
   end
 
   def self.config
     @config ||= Configuration.new
   end
+
+  def self.fetch_player player_id
+    fetched = FetchPlayer.call player_id
+    Responses::Player.from_json fetched.body
+  end
+
+  def self.fetch_players
+    fetched = FetchPlayers.call
+    JSON.parse(fetched.body)['players'].map { |player| Responses::Player.from_json player }
+  end
 end
 
 require 'onesignal/autoloader'
-require 'onesignal/responses/notification'
+require 'onesignal/responses'

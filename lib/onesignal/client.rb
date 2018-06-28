@@ -25,6 +25,14 @@ module OneSignal
       get "notifications/#{notification_id}"
     end
 
+    def fetch_players
+      get 'players'
+    end
+
+    def fetch_player player_id
+      get "players/#{player_id}"
+    end
+
     private
 
     def create_body payload
