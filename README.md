@@ -44,7 +44,7 @@ end
 Create a `Notification` object.
 ```ruby
 # Create headings for different languages. English is required.
-contents = OneSignal::Notification::Headings.new(en: 'Hello!', it: 'Ciao!')
+headings = OneSignal::Notification::Headings.new(en: 'Hello!', it: 'Ciao!')
 
 # Create contents for different languages. English is required.
 contents = OneSignal::Notification::Contents.new(en: "I'm a notification!", it: 'Sono una notifica!')
