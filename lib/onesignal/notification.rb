@@ -20,6 +20,7 @@ module OneSignal
       @excluded_segments = params[:excluded_segments]
       @send_after = params[:send_after].to_s
       @attachments = params[:attachments]
+      @filters = params[:filters]
     end
 
     def as_json options = {}
