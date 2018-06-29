@@ -90,16 +90,16 @@ response.id # => fe82c1ae-54c2-458b-8aad-7edc3e8a96c4
 ### Attachments
 You can add files, data or images to a notification, or an external URL to open.
 ```ruby
-  attachments = OneSignal::Attachments.new(
-        data:            { 'test' => 'test' },
-        url:             'http://example.com',
-        ios_attachments: { 'something' => 'drawable resource name or URL.' },
-        android_picture: 'drawable resource name or URL.',
-        amazon_picture:  'drawable resource name or URL.',
-        chrome_picture:  'drawable resource name or URL.'
-  )
-  
-  OneSignal::Notification.new(attachments: attachments)
+attachments = OneSignal::Attachments.new(
+      data:            { 'test' => 'test' },
+      url:             'http://example.com',
+      ios_attachments: { 'something' => 'drawable resource name or URL.' },
+      android_picture: 'drawable resource name or URL.',
+      amazon_picture:  'drawable resource name or URL.',
+      chrome_picture:  'drawable resource name or URL.'
+)
+
+OneSignal::Notification.new(attachments: attachments)
 ```
 
 ### Fetch players
@@ -114,6 +114,32 @@ Or you can fetch a single player by its ID.
 ```ruby
 player = OneSignal.fetch_player(player_id)
 # => #<OneSignal::Responses::Player>
+```
+
+### Filters
+
+Filters can be created with a simple DSL. It closely matches the [JSON reference](), with a few touches of syntax
+sugar.
+
+**Example**
+```ruby
+filters = [
+  OneSignal::Filter.last_session.lesser_than(2).hours_ago!,
+  OneSignal::Filter.session_count.equals(5),
+  OneSignal::Filter::OR,
+  OneSignal::Filter.country.equals('IT')
+]
+
+OneSignal::Notification.new(filters: filters)
+```
+Becomes
+```json
+[
+  {"field":"last_session","relation":"<","hours_ago":"2"},
+  {"field":"session_count","relation":"=","value":"5"},
+  {"operator":"OR"},
+  {"field":"country","relation":"=","value":"IT"}
+]
 ```
 
 ## Development
