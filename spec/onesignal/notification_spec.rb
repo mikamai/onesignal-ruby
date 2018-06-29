@@ -6,12 +6,6 @@ include OneSignal
 describe Notification do
   let(:contents) { build :contents }
   let(:headings) { build :headings }
-  let(:filters) do
-    [Filter.last_session.lesser_than(2).hours_ago!,
-     Filter.session_count.equals(5),
-     Filter::OR,
-     Filter.country.equals('IT')]
-  end
 
   it 'requires at least some contents' do
     expect { described_class.new }.to raise_error ArgumentError, 'missing contents or template_id'
@@ -24,6 +18,13 @@ describe Notification do
   context 'json' do
     let(:segments) { [build(:segment), build(:segment)] }
     let(:time) { Time.now }
+    let(:filters) do
+      [Filter.last_session.lesser_than(2).hours_ago!,
+       Filter.session_count.equals(5),
+       Filter::OR,
+       Filter.country.equals('IT')]
+    end
+    let(:sounds) { build :sounds }
 
     subject do
       build :notification,
@@ -32,7 +33,8 @@ describe Notification do
             included_segments: segments,
             excluded_segments: segments,
             send_after: time,
-            filters: filters
+            filters: filters,
+            sounds: sounds
     end
 
     it 'serializes as json' do
@@ -48,7 +50,11 @@ describe Notification do
         'big_picture' => subject.attachments.android_picture,
         'adm_big_picture' => subject.attachments.amazon_picture,
         'chrome_big_picture' => subject.attachments.chrome_picture,
-        'filters' => filters.as_json
+        'filters' => filters.as_json,
+        'ios_sound'     => sounds.ios.as_json,
+        'android_sound' => sounds.android.as_json,
+        'adm_sound'     => sounds.amazon.as_json,
+        'wp_wns_sound'  => sounds.windows.as_json
       )
     end
   end
