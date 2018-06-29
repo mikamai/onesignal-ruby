@@ -27,6 +27,9 @@ By default, OneSignal Ruby looks for them in the environment, loading
 
 It also defaults to `https://onesignal.com/api/v1` as the API URL.
 
+You can also turn off OneSignal entirely with a boolean flag (for example to avoid sending
+notification while in test or development environments)
+
 To customize those values, call the following snippet during your
 initialization phase.
 
@@ -35,6 +38,7 @@ OneSignal.define do |config|
   config.app_id = 'my_app_id'
   config.api_key = 'my_api_key'
   config.api_url = 'http://my_api_url'
+  config.active = false
 end
 ```
 ## Usage
