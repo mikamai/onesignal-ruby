@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext/string/inflections'
+require 'active_support/core_ext/string'
 require 'active_support/json'
 require 'onesignal/version'
 require 'onesignal/extra'
 require 'onesignal/commands'
+
+ActiveSupport.escape_html_entities_in_json = false
 
 module OneSignal
   include Commands
