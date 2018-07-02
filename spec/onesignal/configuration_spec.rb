@@ -14,7 +14,7 @@ describe 'Config DSL' do
   end
 
   it 'configure the library via a DSL' do
-    OneSignal.define do |config|
+    OneSignal.configure do |config|
       config.api_url = test_string
       config.app_id = test_string
       config.api_key = test_string

@@ -34,7 +34,7 @@ To customize those values, call the following snippet during your
 initialization phase.
 
 ```ruby
-OneSignal.define do |config|
+OneSignal.configure do |config|
   config.app_id = 'my_app_id'
   config.api_key = 'my_api_key'
   config.api_url = 'http://my_api_url'
