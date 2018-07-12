@@ -9,8 +9,6 @@ require 'onesignal/commands'
 ActiveSupport.escape_html_entities_in_json = false
 
 module OneSignal
-  include Commands
-
   class << self
     def configure
       yield config
@@ -18,25 +16,25 @@ module OneSignal
 
     def send_notification notification
       return unless OneSignal.config.active
-      created = CreateNotification.call notification
+      created = Commands::CreateNotification.call notification
       fetch_notification(JSON.parse(created.body)['id'])
     end
 
     def fetch_notification notification_id
       return unless OneSignal.config.active
-      fetched = FetchNotification.call notification_id
+      fetched = Commands::FetchNotification.call notification_id
       Responses::Notification.from_json fetched.body
     end
 
     def fetch_player player_id
       return unless OneSignal.config.active
-      fetched = FetchPlayer.call player_id
+      fetched = Commands::FetchPlayer.call player_id
       Responses::Player.from_json fetched.body
     end
 
     def fetch_players
       return unless OneSignal.config.active
-      fetched = FetchPlayers.call
+      fetched = Commands::FetchPlayers.call
       JSON.parse(fetched.body)['players'].map { |player| Responses::Player.from_json player }
     end
 
