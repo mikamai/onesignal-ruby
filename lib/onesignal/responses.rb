@@ -1,5 +1,5 @@
 module OneSignal
-  module Commands
+  module Responses
     require 'onesignal/responses/autoloader'
   end
 end

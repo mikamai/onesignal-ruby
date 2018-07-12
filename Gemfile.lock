@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    onesignal-ruby (0.1.0)
+    onesignal-ruby (0.1.1)
       activesupport
       faraday
       simple_command (~> 0.0.9)
