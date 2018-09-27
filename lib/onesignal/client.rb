@@ -67,7 +67,7 @@ module OneSignal
     def handle_errors(res)
       if res.status != 200 || res.status != 204
         body = JSON.parse(res.body)
-        raise ApiErrore.new(body["errors"].first)
+        raise ApiError.new(body["errors"].first)
       end
       res
     end
