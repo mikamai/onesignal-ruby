@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://onesignal.com/api/v1/notifications/?app_id=22bc6dec-5150-4d6d-8628-377259d2dd14
+    uri: https://onesignal.com/api/v1/notifications/?app_id
     body:
       encoding: US-ASCII
       string: ''
@@ -12,7 +12,7 @@ http_interactions:
       Content-Type:
       - application/json
       Authorization:
-      - Basic NTc3Y2RhMTAtMjQzZC00NDIxLWE3MWUtNWU0OWM3YTVhZTlh
+      - Basic test
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
