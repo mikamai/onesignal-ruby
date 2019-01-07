@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OneSignal
   module AutoMap
     def create_readers **attributes

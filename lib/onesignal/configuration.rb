@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OneSignal
   class Configuration
     attr_accessor :app_id, :api_key, :api_url, :active

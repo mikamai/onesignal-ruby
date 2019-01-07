@@ -51,5 +51,4 @@ describe 'Live API Testing', remote: true do
       expect(player.id).to eq @player_id
     end
   end
-
 end

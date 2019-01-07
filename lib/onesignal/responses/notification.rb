@@ -29,8 +29,8 @@ module OneSignal
     # }
     class Notification < BaseResponse
       ATTRIBUTES_WHITELIST = %i[id successful failed converted remaining
-                    queued_at send_after completed_at url data
-                    canceled headings contents].freeze
+                                queued_at send_after completed_at url data
+                                canceled headings contents].freeze
 
       def canceled?
         canceled

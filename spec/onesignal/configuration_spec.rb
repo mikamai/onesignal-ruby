@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Config DSL' do
@@ -28,5 +30,4 @@ describe 'Config DSL' do
     expect(config.api_url).to eq test_string
     expect(config.active).to be_falsey
   end
-
 end

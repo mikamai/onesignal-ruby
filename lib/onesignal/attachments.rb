@@ -4,7 +4,7 @@ module OneSignal
   class Attachments
     attr_reader :data, :url, :ios_attachments, :android_picture, :amazon_picture, :chrome_picture
 
-    def initialize data:nil, url:nil, ios_attachments:nil, android_picture:nil, amazon_picture:nil, chrome_picture:nil
+    def initialize data: nil, url: nil, ios_attachments: nil, android_picture: nil, amazon_picture: nil, chrome_picture: nil
       @data = data
       @url = url
       @ios_attachments = ios_attachments
