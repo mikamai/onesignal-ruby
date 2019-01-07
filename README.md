@@ -6,7 +6,6 @@ A simple, pure Ruby client to the [OneSignal](https://onesignal.com/apps/22bc6de
 
 Add this line to your application's Gemfile:
 
-### COMING SOON (not yet published)
 ```ruby
 gem 'onesignal-ruby'
 ```
