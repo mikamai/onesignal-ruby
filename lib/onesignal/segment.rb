@@ -2,6 +2,11 @@
 
 module OneSignal
   class Segment
+    ALL_USERS = 'All'
+    ACTIVE_USERS = 'Active Users'
+    ENGAGED_USERS = 'Engaged Users'
+    INACTIVE_USERS = 'Inactive Users'
+
     def initialize name:
       @name = name
     end

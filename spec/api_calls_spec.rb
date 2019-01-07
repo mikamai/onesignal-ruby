@@ -19,21 +19,36 @@ describe 'Live API Testing', remote: true do
                      included_segments: ['Test Users'])
   end
 
-  let(:notification_id) { 'fe82c1ae-54c2-458b-8aad-7edc3e8a96c4' }
-
   it 'sends a notification' do
-    VCR.use_cassette('onesignal') do
+    VCR.use_cassette('os-send-noti') do
       response = OneSignal.send_notification notification
       expect(response).to be_instance_of OneSignal::Responses::Notification
-      expect(response.id).to eq notification_id
+      @notification_id = response.id
+      expect(response.id).to eq @notification_id
     end
   end
 
-  it 'fetches a notification' do
-    VCR.use_cassette('onesignal') do
-      response = OneSignal.fetch_notification notification_id
+  it 'fetches a notification by id' do
+    VCR.use_cassette('os-fetch-noti') do
+      response = OneSignal.fetch_notification @notification_id
       expect(response).to be_instance_of OneSignal::Responses::Notification
-      expect(response.id).to eq notification_id
+      expect(response.id).to eq @notification_id
+    end
+  end
+
+  it 'fectches all players' do
+    VCR.use_cassette('os-fetch-players') do
+      player = OneSignal.fetch_players.first
+      expect(player).to be_instance_of OneSignal::Responses::Player
+      @player_id = player.id
+    end
+  end
+
+  it 'fectches one players by id' do
+    VCR.use_cassette('os-fetch-player') do
+      player = OneSignal.fetch_player @player_id
+      expect(player).to be_instance_of OneSignal::Responses::Player
+      expect(player.id).to eq @player_id
     end
   end
 end

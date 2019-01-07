@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :client, class: OneSignal::Client do
     app_id { 'app_id' }
