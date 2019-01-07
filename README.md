@@ -1,4 +1,5 @@
 # OneSignal Ruby Client
+[![Gem Version](https://badge.fury.io/rb/onesignal-ruby.svg)](https://badge.fury.io/rb/onesignal-ruby)
 
 A simple, pure Ruby client to the [OneSignal](https://onesignal.com/apps/22bc6dec-5150-4d6d-8628-377259d2dd14/segments) API.
 
