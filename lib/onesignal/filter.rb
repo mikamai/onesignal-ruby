@@ -43,17 +43,17 @@ module OneSignal
         FilterBuilder.new 'app_version'
       end
 
+      def country
+        FilterBuilder.new 'country'
+      end
+
       def location radius:, lat:, long:
-        location = OpenStruct.new(radius: radius, latitude: lat, longitude: long)
-        new(FilterBuilder.new('location', location: location))
+        location = OpenStruct.new radius: radius, latitude: lat, longitude: long
+        new FilterBuilder.new('location', location: location)
       end
 
       def email email
         new(FilterBuilder.new('email', value: email))
-      end
-
-      def country
-        FilterBuilder.new('country')
       end
     end
 
@@ -70,47 +70,55 @@ module OneSignal
     private
 
     def initialize builder
-      @field = builder.b_field
-      @key = builder.b_key
-      @relation = builder.b_relation
-      @value = builder.b_value
+      @field     = builder.b_field
+      @key       = builder.b_key
+      @relation  = builder.b_relation
+      @value     = builder.b_value
       @hours_ago = builder.b_hours_ago
-      @location = builder.b_location
+      @location  = builder.b_location
     end
 
     class FilterBuilder
       attr_reader :b_field, :b_key, :b_relation, :b_value, :b_hours_ago, :b_location
 
       def initialize field, params = {}
-        @b_field = field
-        @b_key = params[:key]
+        @b_field    = field
+        @b_key      = params[:key]
         @b_location = params[:location]
-        @b_value = params[:value]
+        @b_value    = params[:value]
       end
 
       def lesser_than value
         @b_relation = '<'
-        @b_value = value.to_s
+        @b_value    = value.to_s
         build
       end
+
+      alias < lesser_than
 
       def greater_than value
         @b_relation = '>'
-        @b_value = value.to_s
+        @b_value    = value.to_s
         build
       end
+
+      alias > greater_than
 
       def equals value
         @b_relation = '='
-        @b_value = value.to_s
+        @b_value    = value.to_s
         build
       end
 
+      alias == equals
+
       def not_equals value
         @b_relation = '!='
-        @b_value = value.to_s
+        @b_value    = value.to_s
         build
       end
+
+      alias != not_equals
 
       def exists
         @b_relation = 'exists'

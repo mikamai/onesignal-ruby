@@ -1,4 +1,6 @@
 # OneSignal Ruby Client
+[![Gem Version](https://badge.fury.io/rb/onesignal-ruby.svg)](https://badge.fury.io/rb/onesignal-ruby)
+[![CircleCI](https://circleci.com/gh/mikamai/onesignal-ruby.svg?style=svg)](https://circleci.com/gh/mikamai/onesignal-ruby)
 
 A simple, pure Ruby client to the [OneSignal](https://onesignal.com/apps/22bc6dec-5150-4d6d-8628-377259d2dd14/segments) API.
 
@@ -29,15 +31,20 @@ It also defaults to `https://onesignal.com/api/v1` as the API URL.
 You can also turn off OneSignal entirely with a boolean flag (for example to avoid sending
 notification while in test or development environments)
 
+It will also use an internal instance of the Ruby Logger at `INFO` level.
+
 To customize those values, call the following snippet during your
 initialization phase.
 
 ```ruby
+require 'onesignal'
+
 OneSignal.configure do |config|
   config.app_id = 'my_app_id'
   config.api_key = 'my_api_key'
   config.api_url = 'http://my_api_url'
   config.active = false
+  config.logger = Logger.new # Any Logger compliant implementation
 end
 ```
 ## Usage
@@ -64,6 +71,20 @@ Then send it.
  response = OneSignal.send_notification(notification)
  # => #<OneSignal::Responses::Notification> the created notification
 ```
+
+### Sending a notification to specific devices
+
+Instead of including/excluding a segment you can also target specific devices.
+```ruby
+# Setup headings and content
+
+# Select the devices
+include_player_ids = ["1dd608f2-c6a1-11e3-851d-000c2940e62c"]
+notification = OneSignal::Notification.new(headings: headings, contents: contents, include_player_ids: include_player_ids)
+```
+You can pass the followings when creating a notification: `include_player_ids: []`, `include_email_tokens: []`, `include_ios_tokens: []`, `include_wp_wns_uris: []`, `include_amazon_reg_ids: []`, `include_chrome_reg_ids: []`, `include_chrome_web_reg_ids: []`, `include_android_reg_ids: []`.
+Refer to [OneSignal's documentation](https://documentation.onesignal.com/reference#create-notification) for more information.
+
 
 ### Fetch a notification
 You can fetch an existing notification given its ID.
@@ -121,7 +142,7 @@ player = OneSignal.fetch_player(player_id)
 
 ### Filters
 
-Filters can be created with a simple DSL. It closely matches the [JSON reference](), with a few touches of syntax
+Filters can be created with a simple DSL. It closely matches the [JSON reference](https://documentation.onesignal.com/reference#section-send-to-users-based-on-filters), with a few touches of syntax
 sugar.
 
 **Example**
@@ -145,12 +166,38 @@ Becomes
 ]
 ```
 
+The operator methods (`#lesser_than`, `#greater_than`, `#equals`, `#not_equals`) are also available through the following shorthands: `<`, `>`, `=`, `!=`.
+
+**Example**
+```ruby
+filters = [
+  OneSignal::Filter.tag('userId') == 5,
+  OneSignal::Filter.session_count < 2,
+  OneSignal::Filter.language != 'en'  
+]
+
+OneSignal::Notification.new(filters: filters)
+```
+
 ### Custom Sounds
 You can customize notification sounds by passing a `OneSignal::Sounds` object.
 ```ruby
 sounds = OneSignal::Sounds.new(ios: 'ping.wav', android: 'ping')
 OneSignal::Notification.new(sounds: sounds)
 ```
+
+### Specific Targets
+If you want to send a notification only to specific targets (a particular user's email or device) you can
+pass a `OneSignal::IncludedTargets` to the notification object.
+See [the official documentation](https://documentation.onesignal.com/reference#section-send-to-specific-devices) for a list of available params.
+```ruby
+included_targets = OneSignal::IncludedTargets.new(include_player_ids: 'test-id-12345')
+OneSignal::Notification.new(included_targets: included_targets)
+```
+
+**WARNING**
+Passing `include_player_ids` alongside other params is prohibited and will raise an `ArgumentError`.
+Either use `include_player_ids` or use the other params.
 
 ## Development
 

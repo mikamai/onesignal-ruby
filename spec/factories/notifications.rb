@@ -2,13 +2,13 @@
 
 FactoryBot.define do
   factory :contents, class: OneSignal::Notification::Contents do
-    en { Faker::Fallout.quote }
+    en { Faker::Games::Fallout.quote }
 
     initialize_with { new(attributes) }
   end
 
   factory :headings, class: OneSignal::Notification::Headings do
-    en { Faker::Fallout.quote }
+    en { Faker::Games::Fallout.quote }
 
     initialize_with { new(attributes) }
   end

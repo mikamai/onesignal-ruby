@@ -10,8 +10,8 @@ describe 'Live API Testing', remote: true do
     end
   end
 
-  let(:app_id) { ENV['ONESIGNAL_APP_ID'] }
-  let(:api_key) { ENV['ONESIGNAL_API_KEY'] }
+  let(:app_id) { ENV.fetch('ONESIGNAL_APP_ID', 'test') }
+  let(:api_key) { ENV.fetch('ONESIGNAL_API_KEY', 'test') }
 
   let(:notification) do
     Notification.new(contents: Notification::Contents.new(en: 'Live Test'),

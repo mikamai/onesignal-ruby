@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :segment do
-    initialize_with { new(name: Faker::StarWars.character) }
+    initialize_with { new(name: Faker::Movies::StarWars.character) }
   end
 end
