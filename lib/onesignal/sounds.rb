@@ -24,7 +24,7 @@ module OneSignal
 
     private
 
-    REGEX = /.*.\.\w*/
+    REGEX = /.*.\.\w*/.freeze
 
     def validate ios: nil, windows: nil
       ios_valid = !ios.nil? && (REGEX =~ ios).nil?

@@ -4,6 +4,8 @@ require 'faraday'
 
 module OneSignal
   class Client
+    class ApiError < RuntimeError; end
+
     def initialize app_id, api_key, api_url
       @app_id = app_id
       @api_key = api_key
@@ -42,20 +44,31 @@ module OneSignal
     end
 
     def post url, body
-      @conn.post do |req|
+      res = @conn.post do |req|
         req.url url
         req.body = create_body(body).to_json
         req.headers['Content-Type'] = 'application/json'
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
+
+      handle_errors res
     end
 
     def get url
-      @conn.get do |req|
+      res = @conn.get do |req|
         req.url url, app_id: @app_id
         req.headers['Content-Type'] = 'application/json'
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
+
+      handle_errors res
+    end
+
+    def handle_errors res
+      errors = JSON.parse(res.body).fetch 'errors', []
+      raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || errors.any?
+
+      res
     end
   end
 end

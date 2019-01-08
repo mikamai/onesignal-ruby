@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+include OneSignal
 
 describe Filter do
   context 'builder' do
@@ -279,6 +280,23 @@ describe Filter do
 '{"field":"country","relation":"=","value":"IT"}]'
 
       expect(filters.to_json).to eq json
+    end
+  end
+
+  context Filter::FilterBuilder do
+    subject { described_class.new 'test' }
+    context 'aliases' do
+      it 'has all builder method aliased' do
+        [
+          %i[lesser_than <],
+          %i[greater_than >],
+          %i[equals ==],
+          %i[not_equals !=]
+        ].each do |method_name|
+          name, al = method_name
+          expect(subject.method(name)).to eq subject.method(al)
+        end
+      end
     end
   end
 end

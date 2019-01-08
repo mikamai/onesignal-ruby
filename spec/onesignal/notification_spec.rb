@@ -25,6 +25,7 @@ describe Notification do
        Filter.country.equals('IT')]
     end
     let(:sounds) { build :sounds }
+    let(:targets) { IncludedTargets.new include_email_tokens: 'test', include_external_user_ids: 'test' }
 
     subject do
       build :notification,
@@ -34,7 +35,8 @@ describe Notification do
             excluded_segments: segments,
             send_after: time,
             filters: filters,
-            sounds: sounds
+            sounds: sounds,
+            included_targets: targets
     end
 
     it 'serializes as json' do
@@ -54,7 +56,9 @@ describe Notification do
         'ios_sound'     => sounds.ios.as_json,
         'android_sound' => sounds.android.as_json,
         'adm_sound'     => sounds.amazon.as_json,
-        'wp_wns_sound'  => sounds.windows.as_json
+        'wp_wns_sound'  => sounds.windows.as_json,
+        'include_email_tokens' => targets.include_email_tokens,
+        'include_external_user_ids' => targets.include_external_user_ids
       )
     end
   end
