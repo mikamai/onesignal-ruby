@@ -31,6 +31,8 @@ It also defaults to `https://onesignal.com/api/v1` as the API URL.
 You can also turn off OneSignal entirely with a boolean flag (for example to avoid sending
 notification while in test or development environments)
 
+It will also use an internal instance of the Ruby Logger at `INFO` level.
+
 To customize those values, call the following snippet during your
 initialization phase.
 
@@ -42,6 +44,7 @@ OneSignal.configure do |config|
   config.api_key = 'my_api_key'
   config.api_url = 'http://my_api_url'
   config.active = false
+  config.logger = Logger.new # Any Logger compliant implementation
 end
 ```
 ## Usage
@@ -182,6 +185,19 @@ You can customize notification sounds by passing a `OneSignal::Sounds` object.
 sounds = OneSignal::Sounds.new(ios: 'ping.wav', android: 'ping')
 OneSignal::Notification.new(sounds: sounds)
 ```
+
+### Specific Targets
+If you want to send a notification only to specific targets (a particular user's email or device) you can
+pass a `OneSignal::IncludedTargets` to the notification object.
+See [the official documentation](https://documentation.onesignal.com/reference#section-send-to-specific-devices) for a list of available params.
+```ruby
+included_targets = OneSignal::IncludedTargets.new(include_player_ids: 'test-id-12345')
+OneSignal::Notification.new(included_targets: included_targets)
+```
+
+**WARNING**
+Passing `include_player_ids` alongside other params is prohibited and will raise an `ArgumentError`.
+Either use `include_player_ids` or use the other params.
 
 ## Development
 
