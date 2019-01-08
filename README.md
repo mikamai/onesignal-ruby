@@ -72,20 +72,6 @@ Then send it.
  # => #<OneSignal::Responses::Notification> the created notification
 ```
 
-### Sending a notification to specific devices
-
-Instead of including/excluding a segment you can also target specific devices.
-```ruby
-# Setup headings and content
-
-# Select the devices
-include_player_ids = ["1dd608f2-c6a1-11e3-851d-000c2940e62c"]
-notification = OneSignal::Notification.new(headings: headings, contents: contents, include_player_ids: include_player_ids)
-```
-You can pass the followings when creating a notification: `include_player_ids: []`, `include_email_tokens: []`, `include_ios_tokens: []`, `include_wp_wns_uris: []`, `include_amazon_reg_ids: []`, `include_chrome_reg_ids: []`, `include_chrome_web_reg_ids: []`, `include_android_reg_ids: []`.
-Refer to [OneSignal's documentation](https://documentation.onesignal.com/reference#create-notification) for more information.
-
-
 ### Fetch a notification
 You can fetch an existing notification given its ID.
 ```ruby
