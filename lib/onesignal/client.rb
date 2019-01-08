@@ -4,7 +4,7 @@ require 'faraday'
 
 module OneSignal
   class Client
-    ApiError = Class.new(StandardError)
+    class ApiError < RuntimeError; end
 
     def initialize app_id, api_key, api_url
       @app_id = app_id
@@ -51,7 +51,7 @@ module OneSignal
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
 
-      handle_errors(res)
+      handle_errors res
     end
 
     def get url
@@ -61,15 +61,14 @@ module OneSignal
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
 
-      handle_errors(res)
+      handle_errors res
     end
 
-    def handle_errors(res)
-      body = JSON.parse(res.body)
-      if (res.status != 200 && res.status != 204) || body["errors"]
-        raise ApiError.new(body["errors"].first)
-      end
+    def handle_errors res
+      errors = JSON.parse(res.body).fetch 'errors', []
+      raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || errors.any?
+
       res
     end
-  end 
+  end
 end
