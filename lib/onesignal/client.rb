@@ -4,6 +4,8 @@ require 'faraday'
 
 module OneSignal
   class Client
+    ApiError = Class.new(StandardError)
+
     def initialize app_id, api_key, api_url
       @app_id = app_id
       @api_key = api_key
@@ -42,20 +44,32 @@ module OneSignal
     end
 
     def post url, body
-      @conn.post do |req|
+      res = @conn.post do |req|
         req.url url
         req.body = create_body(body).to_json
         req.headers['Content-Type'] = 'application/json'
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
+
+      handle_errors(res)
     end
 
     def get url
-      @conn.get do |req|
+      res = @conn.get do |req|
         req.url url, app_id: @app_id
         req.headers['Content-Type'] = 'application/json'
         req.headers['Authorization'] = "Basic #{@api_key}"
       end
+
+      handle_errors(res)
     end
-  end
+
+    def handle_errors(res)
+      body = JSON.parse(res.body)
+      if (res.status != 200 && res.status != 204) || body["errors"]
+        raise ApiError.new(body["errors"].first)
+      end
+      res
+    end
+  end 
 end

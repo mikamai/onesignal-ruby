@@ -93,24 +93,28 @@ module OneSignal
         @b_value = value.to_s
         build
       end
+      alias_method(:<, :lesser_than)
 
       def greater_than value
         @b_relation = '>'
         @b_value = value.to_s
         build
       end
+      alias_method(:>, :greater_than)
 
       def equals value
         @b_relation = '='
         @b_value = value.to_s
         build
       end
+      alias_method(:==, :equals)
 
       def not_equals value
         @b_relation = '!='
         @b_value = value.to_s
         build
       end
+      alias_method(:!=, :not_equals)
 
       def exists
         @b_relation = 'exists'

@@ -35,6 +35,8 @@ To customize those values, call the following snippet during your
 initialization phase.
 
 ```ruby
+require 'onesignal'
+
 OneSignal.configure do |config|
   config.app_id = 'my_app_id'
   config.api_key = 'my_api_key'
@@ -66,6 +68,20 @@ Then send it.
  response = OneSignal.send_notification(notification)
  # => #<OneSignal::Responses::Notification> the created notification
 ```
+
+### Sending a notification to specific devices
+
+Instead of including/excluding a segment you can also target specific devices.
+```ruby
+# Setup headings and content
+
+# Select the devices
+include_player_ids = ["1dd608f2-c6a1-11e3-851d-000c2940e62c"]
+notification = OneSignal::Notification.new(headings: headings, contents: contents, include_player_ids: include_player_ids)
+```
+You can pass the followings when creating a notification: `include_player_ids: []`, `include_email_tokens: []`, `include_ios_tokens: []`, `include_wp_wns_uris: []`, `include_amazon_reg_ids: []`, `include_chrome_reg_ids: []`, `include_chrome_web_reg_ids: []`, `include_android_reg_ids: []`.
+Refer to [OneSignal's documentation](https://documentation.onesignal.com/reference#create-notification) for more information.
+
 
 ### Fetch a notification
 You can fetch an existing notification given its ID.
@@ -123,7 +139,7 @@ player = OneSignal.fetch_player(player_id)
 
 ### Filters
 
-Filters can be created with a simple DSL. It closely matches the [JSON reference](), with a few touches of syntax
+Filters can be created with a simple DSL. It closely matches the [JSON reference](https://documentation.onesignal.com/reference#section-send-to-users-based-on-filters), with a few touches of syntax
 sugar.
 
 **Example**
@@ -145,6 +161,19 @@ Becomes
   {"operator":"OR"},
   {"field":"country","relation":"=","value":"IT"}
 ]
+```
+
+The operator methods (`#lesser_than`, `#greater_than`, `#equals`, `#not_equals`) are also available through the following shorthands: `<`, `>`, `=`, `!=`.
+
+**Example**
+```ruby
+filters = [
+  OneSignal::Filter.tag('userId') == 5,
+  OneSignal::Filter.session_count < 2,
+  OneSignal::Filter.language != 'en'  
+]
+
+OneSignal::Notification.new(filters: filters)
 ```
 
 ### Custom Sounds
