@@ -36,17 +36,16 @@ module OneSignal
     end
 
     def csv_export extra_fields: nil, last_active_since: nil, segment_name: nil
-      params = {}
-      params[:extra_fields] = extra_fields if extra_fields
-      params[:last_active_since] = last_active_since.to_i.to_s if last_active_since
-      params[:segment_name] = segment_name if segment_name
-      post "players/csv_export?app_id=#{@app_id}", params
+      post "players/csv_export?app_id=#{@app_id}", 
+        extra_fields: extra_fields, 
+        last_active_since: last_active_since&.to_i&.to_s, 
+        segment_name: segment_name
     end
 
     private
 
     def create_body payload
-      body = payload.as_json
+      body = payload.as_json.delete_if { |_, v| v.nil? }
       body['app_id'] = @app_id
       body
     end
