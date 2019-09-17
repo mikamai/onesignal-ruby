@@ -1,0 +1,135 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://onesignal.com/api/v1/players/csv_export?app_id=test
+    body:
+      encoding: UTF-8
+      string: '{"app_id":"test"}'
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic ZjI3NDAwY2ItNTM1Yy00OTkwLWE1OTAtNzI0ZjdmNTg1ZTlj
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 17 Sep 2019 14:33:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d10f3912512be2fb143a35a8fb1af30331568730781; expires=Wed, 16-Sep-20
+        14:33:01 GMT; path=/; domain=.onesignal.com; HttpOnly
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - b5baa4c3-9884-4a26-ad57-9695fe9c85a4
+      Access-Control-Allow-Headers:
+      - SDK-Version
+      Etag:
+      - W/"7965e366a680d7fa0c3b52547dfd736a"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Runtime:
+      - '0.169620'
+      X-Content-Type-Options:
+      - nosniff
+      X-Powered-By:
+      - Phusion Passenger 5.3.7
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 517bcaf63e2ed45b-HAM
+    body:
+      encoding: ASCII-8BIT
+      string: '{"csv_file_url":"https://onesignal.s3.amazonaws.com/csv_exports/test/users_abc123.csv.gz"}'
+    http_version: 
+  recorded_at: Tue, 17 Sep 2019 14:33:01 GMT
+- request:
+    method: post
+    uri: https://onesignal.com/api/v1/players/csv_export?app_id=test
+    body:
+      encoding: UTF-8
+      string: '{"app_id":"test","last_active_since":"1568419200"}'
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic ZjI3NDAwY2ItNTM1Yy00OTkwLWE1OTAtNzI0ZjdmNTg1ZTlj
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 17 Sep 2019 14:33:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d10f3912512be2fb143a35a8fb1af30331568730781; expires=Wed, 16-Sep-20
+        14:33:01 GMT; path=/; domain=.onesignal.com; HttpOnly
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - b5baa4c3-9884-4a26-ad57-9695fe9c85a4
+      Access-Control-Allow-Headers:
+      - SDK-Version
+      Etag:
+      - W/"7965e366a680d7fa0c3b52547dfd736a"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Runtime:
+      - '0.169620'
+      X-Content-Type-Options:
+      - nosniff
+      X-Powered-By:
+      - Phusion Passenger 5.3.7
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 517bcaf63e2ed45b-HAM
+    body:
+      encoding: ASCII-8BIT
+      string: '{"csv_file_url":"https://onesignal.s3.amazonaws.com/csv_exports/test/users_def456.csv.gz"}'
+    http_version: 
+  recorded_at: Tue, 17 Sep 2019 14:33:01 GMT
+recorded_with: VCR 4.0.0

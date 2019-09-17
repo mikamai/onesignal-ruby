@@ -41,6 +41,13 @@ module OneSignal
       JSON.parse(fetched.body)['players'].map { |player| Responses::Player.from_json player }
     end
 
+    def csv_export params = {}
+      return unless OneSignal.config.active
+
+      fetched = Commands::CsvExport.call params
+      Responses::CsvExport.from_json fetched.body
+    end
+
     def config
       @config ||= Configuration.new
     end
