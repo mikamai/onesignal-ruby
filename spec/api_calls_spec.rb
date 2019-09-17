@@ -51,4 +51,30 @@ describe 'Live API Testing', remote: true do
       expect(player.id).to eq @player_id
     end
   end
+
+  context 'with keys' do
+    around do |example|
+      OneSignal.config.app_id = app_id
+      OneSignal.config.api_key = api_key
+      example.run
+      OneSignal.config.app_id = nil
+      OneSignal.config.api_key = nil
+    end
+
+    it 'fetches CSV export data' do
+      VCR.use_cassette('os-csv-export') do
+        response = OneSignal.csv_export
+        expect(response).to be_instance_of OneSignal::Responses::CsvExport
+        expect(response.csv_file_url).to eq 'https://onesignal.s3.amazonaws.com/csv_exports/test/users_abc123.csv.gz'
+      end
+    end
+
+    it 'fetches CSV export data with params' do
+      VCR.use_cassette('os-csv-export', match_requests_on: [:body_as_json]) do
+        response = OneSignal.csv_export last_active_since: Time.at(1568419200)
+        expect(response).to be_instance_of OneSignal::Responses::CsvExport
+        expect(response.csv_file_url).to eq 'https://onesignal.s3.amazonaws.com/csv_exports/test/users_def456.csv.gz'
+      end
+    end
+  end
 end
