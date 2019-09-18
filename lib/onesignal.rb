@@ -27,6 +27,31 @@ module OneSignal
       Responses::Notification.from_json fetched.body
     end
 
+    def fetch_notifications(page_limit: 50, page_offset: 0, kind: nil)
+      return unless OneSignal.config.active
+
+      Enumerator.new() do |yielder|
+        limit = page_limit
+        offset = page_offset
+
+        fetched = Commands::FetchNotifications.call limit, offset, kind
+        parsed = JSON.parse(fetched.body)
+
+        total_count = parsed["total_count"]
+        max_pages = (total_count / limit.to_f).ceil
+
+        loop do
+          parsed['notifications'].each do |notification|
+            yielder << Responses::Notification.from_json(notification)
+          end
+          offset += 1
+          break if offset >= max_pages
+          fetched = Commands::FetchNotifications.call limit, offset*limit, kind
+          parsed = JSON.parse(fetched.body)
+        end
+      end
+    end
+
     def fetch_player player_id
       return unless OneSignal.config.active
 
