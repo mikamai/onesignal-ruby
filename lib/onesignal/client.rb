@@ -27,6 +27,12 @@ module OneSignal
       get "notifications/#{notification_id}"
     end
 
+    def fetch_notifications page_limit: 50, page_offset: 0, kind: nil
+      url = "notifications?limit=#{page_limit}&offset=#{page_offset}"
+      url = kind ? "#{url}&kind=#{kind}" : url
+      get url
+    end
+
     def fetch_players
       get 'players'
     end
