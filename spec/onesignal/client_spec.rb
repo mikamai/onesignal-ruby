@@ -39,4 +39,18 @@ describe Client do
       }.to raise_error Client::ApiError, 'Internal Server Error'
     end
   end
+
+  context 'fetch_notifications' do
+    it 'appends kind if present' do
+      expected_url = 'notifications?limit=50&offset=0&kind=1'
+      expect(subject).to receive(:get).with(expected_url)
+      subject.fetch_notifications(page_limit: 50, page_offset: 0, kind: 1)
+    end
+
+    it "doesn't append kind if absent" do
+      expected_url = 'notifications?limit=50&offset=0'
+      expect(subject).to receive(:get).with(expected_url)
+      subject.fetch_notifications(page_limit: 50, page_offset: 0, kind: nil)
+    end
+  end
 end

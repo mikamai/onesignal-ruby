@@ -36,6 +36,17 @@ describe 'Live API Testing', remote: true do
     end
   end
 
+  it 'fetches notifications' do
+    VCR.use_cassette('os-fetch-notifications', allow_playback_repeats: true) do
+      response = OneSignal.fetch_notifications
+      notification = response.first
+      expect(notification).to be_instance_of OneSignal::Responses::Notification
+      expect(response.count).to eq 51
+      # Ensure the Enumerator doesn't cache data improperly
+      expect(response.count).to eq 51
+    end
+  end
+
   it 'fectches all players' do
     VCR.use_cassette('os-fetch-players') do
       player = OneSignal.fetch_players.first
