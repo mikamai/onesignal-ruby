@@ -1,0 +1,42 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:2.6.0
+        environment:
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Bundle cache
+          keys:
+            - bundle-{{ checksum "Gemfile.lock" }}
+            - bundle-
+      - run:
+          name: Install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          name: Save Bundle cache
+          paths:
+            - ./vendor/bundle
+          key: bundle-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: Run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress \
+                            $TEST_FILES
+
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
