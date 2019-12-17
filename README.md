@@ -20,6 +20,10 @@ Or install it yourself as:
 
     $ gem install onesignal-ruby
 
+    # For Rails 6 compatibility:
+    $ gem install onesignal-ruby, '~> 0.4'
+
+
 ## Configuration
 OneSignal requires an App ID and an API Key, which can be found
 on the OneSignal dashboard.
@@ -159,7 +163,7 @@ The operator methods (`#lesser_than`, `#greater_than`, `#equals`, `#not_equals`)
 filters = [
   OneSignal::Filter.tag('userId') == 5,
   OneSignal::Filter.session_count < 2,
-  OneSignal::Filter.language != 'en'  
+  OneSignal::Filter.language != 'en'
 ]
 
 OneSignal::Notification.new(filters: filters)
