@@ -1,6 +1,6 @@
 # OneSignal Ruby Client
 [![Gem Version](https://badge.fury.io/rb/onesignal-ruby.svg)](https://badge.fury.io/rb/onesignal-ruby)
-[![GitHub Actions](https://github.com/mikamai/onesignal-ruby/workflows/Ruby/badge.svg)](https://github.com/mikamai/onesignal-ruby)
+[![CircleCI](https://circleci.com/gh/mikamai/onesignal-ruby.svg?style=svg)](https://circleci.com/gh/mikamai/onesignal-ruby)
 
 A simple, pure Ruby client to the [OneSignal](https://onesignal.com/apps/22bc6dec-5150-4d6d-8628-377259d2dd14/segments) API.
 
@@ -19,6 +19,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install onesignal-ruby
+
+    # For Rails 6 compatibility:
+    $ gem install onesignal-ruby, '~> 0.4'
+
 
 ## Configuration
 OneSignal requires an App ID and an API Key, which can be found
@@ -159,7 +163,7 @@ The operator methods (`#lesser_than`, `#greater_than`, `#equals`, `#not_equals`)
 filters = [
   OneSignal::Filter.tag('userId') == 5,
   OneSignal::Filter.session_count < 2,
-  OneSignal::Filter.language != 'en'  
+  OneSignal::Filter.language != 'en'
 ]
 
 OneSignal::Notification.new(filters: filters)
