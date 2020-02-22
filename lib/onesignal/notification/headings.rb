@@ -10,7 +10,7 @@ module OneSignal
 
       def initialize en:, **headings
         @headings = headings.merge(en: en)
-        create_readers @headings
+        create_readers **@headings
       end
     end
   end
