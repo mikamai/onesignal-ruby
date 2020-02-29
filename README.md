@@ -116,6 +116,17 @@ attachments = OneSignal::Attachments.new(
 OneSignal::Notification.new(attachments: attachments)
 ```
 
+### Buttons
+You can add interactive buttons to a notification. See https://documentation.onesignal.com/docs/action-buttons for more details.
+
+```ruby
+buttons = OneSignal::Buttons.new(
+    buttons: [{id: 'option_a', text: 'Option A' }, {id: 'option_b', text: 'Option B' }]
+)
+
+OneSignal::Notification.new(buttons: buttons)
+```
+
 ### Fetch players
 You can fetch all players and devices with a simple method.
 
