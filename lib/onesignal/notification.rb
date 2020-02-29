@@ -6,7 +6,7 @@ require 'onesignal/notification/headings'
 module OneSignal
   class Notification
     attr_reader :contents, :headings, :template_id, :included_segments, :excluded_segments,
-                :included_targets, :send_after, :attachments, :sounds
+                :included_targets, :send_after, :attachments, :sounds, :buttons
 
     def initialize **params
       unless params.include?(:contents) || params.include?(:template_id)
@@ -23,6 +23,7 @@ module OneSignal
       @attachments       = params[:attachments]
       @filters           = params[:filters]
       @sounds            = params[:sounds]
+      @buttons           = params[:buttons]
     end
 
     def as_json options = {}
@@ -30,6 +31,7 @@ module OneSignal
         .except('attachments', 'sounds', 'included_targets')
         .merge(@attachments&.as_json(options) || {})
         .merge(@sounds&.as_json(options) || {})
+        .merge(@buttons&.as_json(options) || {})
         .merge(@included_targets&.as_json(options) || {})
         .select { |_k, v| v.present? }
     end
