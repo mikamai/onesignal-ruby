@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'dotenv', '~> 2.5'
   spec.add_development_dependency 'factory_bot', '~> 4.11'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.4'
   spec.add_development_dependency 'vcr', '~> 4.0', '>= 4.0.0'
