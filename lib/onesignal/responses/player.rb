@@ -6,7 +6,7 @@ module OneSignal
       ATTRIBUTES_WHITELIST = %i[id identifier session_count language timezone
                                 game_version device_os device_type device_model tags
                                 ad_id last_active playtime amount_spent created_at
-                                invalid_identifier badge_count sdk test_type ip].freeze
+                                invalid_identifier badge_count sdk test_type ip external_user_id].freeze
 
       def invalid_identifier?
         invalid_identifier
