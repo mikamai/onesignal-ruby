@@ -7,7 +7,7 @@ module OneSignal
   class Notification
     attr_reader :contents, :headings, :template_id, :included_segments, :excluded_segments,
                 :included_targets, :email_subject, :send_after, :attachments, :sounds, :buttons,
-                :email_body, :icons
+                :email_body, :icons, :external_id
 
     def initialize **params
       unless params.include?(:contents) || params.include?(:template_id)
@@ -28,6 +28,7 @@ module OneSignal
       @sounds            = params[:sounds]
       @buttons           = params[:buttons]
       @icons             = params[:icons]
+      @external_id       = params[:external_id]
     end
 
     def as_json options = {}
