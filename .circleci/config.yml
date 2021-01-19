@@ -11,7 +11,7 @@ jobs:
       - restore_cache:
           name: Restore Bundle cache
           keys:
-            - bundle-{{ checksum "Gemfile.lock" }}
+            - bundle-{{ checksum "onesignal-ruby.gemspec" }}
             - bundle-
       - run:
           name: Install dependencies
@@ -21,7 +21,7 @@ jobs:
           name: Save Bundle cache
           paths:
             - ./vendor/bundle
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "onesignal-ruby.gemspec" }}
 
       - run:
           name: Run tests
