@@ -71,7 +71,7 @@ jobs:
             echo ":rubygems_api_key: $RUBYGEMS_API_KEY" > ~/.gems/credentials
       - run:
           name: Publish gem
-          command: gem push release.gem
+          command: gem push release.gem --key rubygems_api_key
 
 workflows:
   version: 2
