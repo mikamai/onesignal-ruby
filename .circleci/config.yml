@@ -67,6 +67,7 @@ jobs:
       - run:
           name: Configure credentials
           command: |
+            mkdir -p ~/.gems
             echo ":rubygems_api_key: $RUBYGEMS_API_KEY" > ~/.gems/credentials
       - run:
           name: Publish gem
