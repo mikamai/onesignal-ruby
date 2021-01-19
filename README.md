@@ -20,10 +20,6 @@ Or install it yourself as:
 
     $ gem install onesignal-ruby
 
-    # For Rails 6 compatibility:
-    $ gem install onesignal-ruby, '~> 0.4'
-
-
 ## Configuration
 OneSignal requires an App ID and an API Key, which can be found
 on the OneSignal dashboard.
