@@ -69,6 +69,7 @@ jobs:
           command: |
             mkdir -p ~/.gem
             echo ":rubygems_api_key: $RUBYGEMS_API_KEY" > ~/.gem/credentials
+            chmod 0600 ~/.gem/credentials
       - run:
           name: Publish gem
           command: gem push release.gem --key rubygems_api_key
