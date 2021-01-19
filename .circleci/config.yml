@@ -1,9 +1,8 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
-      - image: circleci/ruby:2.6.0
-        environment:
+      - image: circleci/ruby:2.7.0
     working_directory: ~/repo
 
     steps:
@@ -40,3 +39,46 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+  release:
+    docker:
+      - image: circleci/ruby:2.7.0
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+      name: Restore Bundle cache
+      keys:
+        - bundle-{{ checksum "onesignal-ruby.gemspec" }}
+        - bundle-
+      - run:
+          name: Install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          name: Save Bundle cache
+          paths:
+            - ./vendor/bundle
+          key: bundle-{{ checksum "onesignal-ruby.gemspec" }}
+
+      - run:
+          name: Package gem
+          command: gem build --output release.gem
+
+      - run:
+          name: Publish gem
+          command: gem push release.gem
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+  test_release:
+    jobs:
+      - test
+      - release:
+          requires:
+            - test
+          filters:
+            tags:
+              only: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
