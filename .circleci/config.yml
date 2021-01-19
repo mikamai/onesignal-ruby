@@ -72,7 +72,7 @@ jobs:
             chmod 0600 ~/.gem/credentials
       - run:
           name: Publish gem
-          command: gem push release.gem --key rubygems_api_key
+          command: gem push release.gem
 
 workflows:
   version: 2
