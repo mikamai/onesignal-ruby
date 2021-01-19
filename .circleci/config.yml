@@ -65,6 +65,10 @@ jobs:
           command: gem build --output release.gem
 
       - run:
+          name: Configure credentials
+          command: |
+            echo ":rubygems_api_key: $RUBYGEMS_API_KEY" > ~/.gems/credentials
+      - run:
           name: Publish gem
           command: gem push release.gem
 
