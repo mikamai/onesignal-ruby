@@ -46,10 +46,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-      name: Restore Bundle cache
-      keys:
-        - bundle-{{ checksum "onesignal-ruby.gemspec" }}
-        - bundle-
+          name: Restore Bundle cache
+          keys:
+            - bundle-{{ checksum "onesignal-ruby.gemspec" }}
+            - bundle-
       - run:
           name: Install dependencies
           command: |
