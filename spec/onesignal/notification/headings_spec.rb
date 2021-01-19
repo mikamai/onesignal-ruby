@@ -6,7 +6,7 @@ include OneSignal
 
 describe Notification::Headings do
   it 'requires at least an english content' do
-    expect { described_class.new }.to raise_error ArgumentError, 'missing keyword: en'
+    expect { described_class.new }.to raise_error ArgumentError, /en/
   end
 
   it 'creates a new Content with only english' do
