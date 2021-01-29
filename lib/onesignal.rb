@@ -59,6 +59,13 @@ module OneSignal
       Responses::Player.from_json fetched.body
     end
 
+    def delete_player player_id
+      return unless OneSignal.config.active
+
+      fetched = Commands::DeletePlayer.call player_id
+      Responses::Player.from_json fetched.body
+    end
+
     def fetch_players
       return unless OneSignal.config.active
 
