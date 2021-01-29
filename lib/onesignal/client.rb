@@ -41,6 +41,10 @@ module OneSignal
       get "players/#{player_id}"
     end
 
+    def delete_player player_id
+      delete "players/#{player_id}"
+    end
+
     def csv_export extra_fields: nil, last_active_since: nil, segment_name: nil
       post "players/csv_export?app_id=#{@app_id}", 
         extra_fields: extra_fields, 
@@ -54,6 +58,15 @@ module OneSignal
       body = payload.as_json.delete_if { |_, v| v.nil? }
       body['app_id'] = @app_id
       body
+    end
+
+    def delete url
+      res = @conn.delete do |req|
+        req.url url, app_id: @app_id
+        req.headers['Authorization'] = "Basic #{@api_key}"
+      end
+
+      handle_errors res
     end
 
     def post url, body
