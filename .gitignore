@@ -15,3 +15,5 @@
 .env
 .env.*
 *.gem
+
+Gemfile.lock

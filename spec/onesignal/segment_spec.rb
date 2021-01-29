@@ -5,7 +5,7 @@ include OneSignal
 
 describe Segment do
   it 'requires a name' do
-    expect { described_class.new }.to raise_error ArgumentError, 'missing keyword: name'
+    expect { described_class.new }.to raise_error ArgumentError, /name/
   end
 
   context 'json' do
