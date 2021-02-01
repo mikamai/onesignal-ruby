@@ -43,6 +43,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 3.4'
 
   spec.add_runtime_dependency 'activesupport', '>= 5.0.0', '< 7'
-  spec.add_runtime_dependency 'faraday', '~> 0.15', '>= 0.15.4'
+  spec.add_runtime_dependency 'faraday', '~> 1.0', '>= 1.0'
   spec.add_runtime_dependency 'simple_command', '~> 0', '>= 0.0.9'
 end
