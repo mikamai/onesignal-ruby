@@ -24,6 +24,7 @@ describe Notification do
        Filter::OR,
        Filter.country.equals('IT')]
     end
+    let(:email_subject) { Faker::Lorem.sentence }
     let(:sounds) { build :sounds }
     let(:targets) { IncludedTargets.new include_email_tokens: 'test', include_external_user_ids: 'test' }
 
@@ -36,7 +37,8 @@ describe Notification do
             send_after: time,
             filters: filters,
             sounds: sounds,
-            included_targets: targets
+            included_targets: targets,
+            email_subject: email_subject
     end
 
     it 'serializes as json' do
@@ -58,7 +60,8 @@ describe Notification do
         'adm_sound'     => sounds.amazon.as_json,
         'wp_wns_sound'  => sounds.windows.as_json,
         'include_email_tokens' => targets.include_email_tokens,
-        'include_external_user_ids' => targets.include_external_user_ids
+        'include_external_user_ids' => targets.include_external_user_ids,
+        'email_subject' => email_subject
       )
     end
   end
