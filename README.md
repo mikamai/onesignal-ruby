@@ -212,6 +212,8 @@ This repo is managed following the [Git Flow](https://danielkummer.github.io/git
 - `feature/my-awesome-branch` are personal, dedicated branches for working on actual features. They are merged in develop once completed and then deleted.
 - `hotfix/my-awesome-fix` are special branches dedicated to bugfixes that compromise the library functionality. They are merged
 in both master and develop and then deleted.
+  
+[CHANGELOG](CHANGELOG.md) entries MUST be added for every change made to the source code.
 
 ## License
 
