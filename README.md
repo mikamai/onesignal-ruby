@@ -2,7 +2,7 @@
 [![Gem Version](https://badge.fury.io/rb/onesignal-ruby.svg)](https://badge.fury.io/rb/onesignal-ruby)
 [![CircleCI](https://circleci.com/gh/mikamai/onesignal-ruby.svg?style=svg)](https://circleci.com/gh/mikamai/onesignal-ruby)
 
-A simple, pure Ruby client to the [OneSignal Push Notification API](https://onesignal.com/) API. OneSignal provides a self-serve customer engagement solution for Push Notifications, Email, SMS & In-App.
+A simple, pure Ruby client to the [OneSignal Push Notification API](https://onesignal.com/). OneSignal provides a self-serve customer engagement solution for Push Notifications, Email, SMS & In-App.
 
 ## Installation
 
