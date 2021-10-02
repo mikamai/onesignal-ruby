@@ -5,10 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Support for icons thanks to [@mtayllan] ([#33](https://github.com/mikamai/onesignal-ruby/pull/33))
+
 
 ## [0.5.0] - 2021-05-17
 ### Added
-- Support for the email_subject field thanks to [@regedarek] ([#26](https://github.com/mikamai/onesignal-ruby/pull/26)) 
+- Support for the email_subject field thanks to [@regedarek] ([#26](https://github.com/mikamai/onesignal-ruby/pull/26))
   with tests contributed by [@martinjaimem] ([#28](https://github.com/mikamai/onesignal-ruby/pull/28))
 - Support for the email_body field thanks to [@martinjaimem] ([#29](https://github.com/mikamai/onesignal-ruby/pull/29))
 
