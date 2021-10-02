@@ -7,7 +7,7 @@ module OneSignal
   class Notification
     attr_reader :contents, :headings, :template_id, :included_segments, :excluded_segments,
                 :included_targets, :email_subject, :send_after, :attachments, :sounds, :buttons,
-                :email_body
+                :email_body, :icons
 
     def initialize **params
       unless params.include?(:contents) || params.include?(:template_id)
@@ -27,15 +27,17 @@ module OneSignal
       @filters           = params[:filters]
       @sounds            = params[:sounds]
       @buttons           = params[:buttons]
+      @icons             = params[:icons]
     end
 
     def as_json options = {}
       super(options)
-        .except('attachments', 'sounds', 'included_targets')
+        .except('attachments', 'sounds', 'included_targets', 'icons')
         .merge(@attachments&.as_json(options) || {})
         .merge(@sounds&.as_json(options) || {})
         .merge(@buttons&.as_json(options) || {})
         .merge(@included_targets&.as_json(options) || {})
+        .merge(@icons&.as_json(options) || {})
         .select { |_k, v| v.present? }
     end
   end
