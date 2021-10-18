@@ -17,6 +17,7 @@ FactoryBot.define do
     contents
     headings
     attachments { build :attachments }
+    icons { build :icons }
     included_segments { [build(:segment), build(:segment)] }
     excluded_segments { [build(:segment), build(:segment)] }
     send_after { Time.now }
