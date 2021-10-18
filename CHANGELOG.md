@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Support for deleting a Player
+- Support for external_player_id
+
+
+## [Unreleased]
+### Added
 - Support for icons thanks to [@mtayllan] ([#33](https://github.com/mikamai/onesignal-ruby/pull/33))
 
 
