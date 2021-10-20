@@ -63,6 +63,15 @@ describe 'Live API Testing', remote: true do
     end
   end
 
+  it 'deletes one player by id' do
+    VCR.use_cassette('os-delete-player', :record => :new_episodes) do
+      player = OneSignal.delete_player @player_id
+      expect(player).to be_instance_of OneSignal::Responses::Player
+      expect(player.id).to eq @player_id
+    end
+  end
+
+
   context 'with keys' do
     around do |example|
       OneSignal.config.app_id = app_id
