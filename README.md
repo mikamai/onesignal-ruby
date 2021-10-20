@@ -137,6 +137,13 @@ player = OneSignal.fetch_player(player_id)
 # => #<OneSignal::Responses::Player>
 ```
 
+### Delete players
+You can delete a single player by its ID.
+```ruby
+OneSignal.delete_player(player_id)
+#<OneSignal::Responses::Player:0x000056062f397d18 @attributes={}>
+```
+
 ### Filters
 
 Filters can be created with a simple DSL. It closely matches the [JSON reference](https://documentation.onesignal.com/reference#section-send-to-users-based-on-filters), with a few touches of syntax
