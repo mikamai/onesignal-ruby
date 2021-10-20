@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: https://onesignal.com/api/v1/players/?app_id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.2
+      Content-Type:
+      - application/json
+      Authorization:
+      - Basic test
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 28 Jun 2018 15:30:58 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d162ae07cbc70fafa075f6d10a6694cc61530199858; expires=Fri, 28-Jun-19
+        15:30:58 GMT; path=/; domain=.onesignal.com; HttpOnly
+      Status:
+      - 200 OK
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Request-Id:
+      - 768dd4da-9f24-4a93-8a1b-3efbc3bf22b2
+      Access-Control-Allow-Headers:
+      - SDK-Version
+      Etag:
+      - W/"cee038b261c95e403233f1ada96658e3"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Runtime:
+      - '0.029141'
+      X-Content-Type-Options:
+      - nosniff
+      X-Powered-By:
+      - Phusion Passenger 5.3.2
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 4321329ccab1430a-MXP
+    body:
+      encoding: ASCII-8BIT
+      string: '{"total_count":8,"offset":0,"limit":300,"players":[{"id":"14c8141f-d57d-4652-8911-960a00ff14fa","identifier":"52812f0ca9b3cc1c1f6a13fd1467c3a2a9f7ef3db5ee56cb951b00fb6bb78665","session_count":10,"language":"it","timezone":7200,"game_version":"1","device_os":"11.4","device_type":0,"device_model":"iPhone10,5","ad_id":"7A30EDB9-A4EA-404E-BA5E-2AEA86C74AA7","tags":{},"last_active":1530184068,"playtime":1219,"amount_spent":0.0,"created_at":1530177751,"invalid_identifier":false,"badge_count":0,"sdk":"020805","test_type":1,"ip":null},{"id":"16c0eee0-edc0-4630-8792-1c432a2e7da1","identifier":null,"session_count":2,"language":"en","timezone":7200,"game_version":"1","device_os":"7.1.2","device_type":1,"device_model":"MotoG3","ad_id":null,"tags":{},"last_active":1530192672,"playtime":0,"amount_spent":0.0,"created_at":1530192553,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null},{"id":"066e3db6-1ed1-49f0-9340-624327e3faf8","identifier":null,"session_count":1,"language":"en","timezone":7200,"game_version":"1","device_os":"7.1.2","device_type":1,"device_model":"MotoG3","ad_id":null,"tags":{},"last_active":1530193737,"playtime":0,"amount_spent":0.0,"created_at":1530193737,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null},{"id":"cf435718-f137-4fd8-ba43-b9ada7e88846","identifier":null,"session_count":1,"language":"en","timezone":7200,"game_version":"1","device_os":"7.1.2","device_type":1,"device_model":"MotoG3","ad_id":null,"tags":{},"last_active":1530194294,"playtime":0,"amount_spent":0.0,"created_at":1530194294,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null},{"id":"ba4b2ab3-cc89-4bd6-8c1a-9f69e7a2aa55","identifier":null,"session_count":1,"language":"en","timezone":7200,"game_version":"1","device_os":"7.1.2","device_type":1,"device_model":"MotoG3","ad_id":null,"tags":{},"last_active":1530197017,"playtime":0,"amount_spent":0.0,"created_at":1530197017,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null},{"id":"152c5092-beb7-4b54-a0c0-168460ff41c0","identifier":null,"session_count":1,"language":"en","timezone":0,"game_version":"1","device_os":"8.1.0","device_type":1,"device_model":"Android
+        SDK built for x86","ad_id":null,"tags":{},"last_active":1530198026,"playtime":0,"amount_spent":0.0,"created_at":1530198026,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null},{"id":"16421e68-fa8f-4072-82db-2d2d1765c317","identifier":null,"session_count":1,"language":"en","timezone":0,"game_version":"1","device_os":"8.1.0","device_type":1,"device_model":"Android
+        SDK built for x86","ad_id":null,"tags":{},"last_active":1530198244,"playtime":0,"amount_spent":0.0,"created_at":1530198244,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null},{"id":"e818b09c-3eca-41be-b0ee-8379cab19d93","identifier":null,"session_count":1,"language":"en","timezone":0,"game_version":"1","device_os":"8.1.0","device_type":1,"device_model":"Android
+        SDK built for x86","ad_id":null,"tags":{},"last_active":1530199447,"playtime":0,"amount_spent":0.0,"created_at":1530199447,"invalid_identifier":true,"badge_count":0,"sdk":"030901","test_type":null,"ip":null}]}'
+    http_version: 
+  recorded_at: Thu, 28 Jun 2018 15:30:58 GMT
+recorded_with: VCR 4.0.0
