@@ -5,13 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Added
-- Support for deleting a Player
-- Support for external_player_id
 
-
-## [Unreleased]
+## [0.6.0] - 2021-10-21
 ### Added
+- Support for external_player_id and for deleting a Player thanks to [@reachire-smendola] ([#35](https://github.com/mikamai/onesignal-ruby/pull/35))
 - Support for icons thanks to [@mtayllan] ([#33](https://github.com/mikamai/onesignal-ruby/pull/33))
 
 
@@ -42,7 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2019-01-07
 First public release. This version is the first publicly available on [RubyGems](https://rubygems.org/gems/onesignal-ruby).
 
-[Unreleased]: https://github.com/mikamai/onesignal-ruby/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/mikamai/onesignal-ruby/compare/0.6.0...HEAD
+[0.6.0]: https://github.com/mikamai/onesignal-ruby/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/mikamai/onesignal-ruby/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/mikamai/onesignal-ruby/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/mikamai/onesignal-ruby/compare/0.2.0...0.3.0
@@ -56,3 +54,4 @@ First public release. This version is the first publicly available on [RubyGems]
 [@martinjaimem]: https://github.com/martinjaimem
 [@regedarek]: https://github.com/regedarek
 [@rgould]: https://github.com/rgould
+[@reachire-smendola]: https://github.com/reachire-smendola
