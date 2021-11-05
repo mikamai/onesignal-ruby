@@ -18,6 +18,7 @@ describe Notification do
   context 'json' do
     let(:segments) { [build(:segment), build(:segment)] }
     let(:time) { Time.now }
+    let(:priority) { 10 }
     let(:filters) do
       [Filter.last_session.lesser_than(2).hours_ago!,
        Filter.session_count.equals(5),
@@ -37,6 +38,7 @@ describe Notification do
             included_segments: segments,
             excluded_segments: segments,
             send_after: time,
+            priority: priority,
             filters: filters,
             sounds: sounds,
             included_targets: targets,
@@ -50,6 +52,7 @@ describe Notification do
         'contents' => contents.as_json,
         'headings' => headings.as_json,
         'send_after' => time.to_s,
+        'priority' => priority,
         'included_segments' => segments.as_json,
         'excluded_segments' => segments.as_json,
         'data' => subject.attachments.data.as_json,
