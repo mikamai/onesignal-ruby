@@ -23,6 +23,7 @@ module OneSignal
       @email_subject     = params[:email_subject]
       @email_body        = params[:email_body]
       @send_after        = params[:send_after].to_s
+      @priority          = params[:priority]
       @attachments       = params[:attachments]
       @filters           = params[:filters]
       @sounds            = params[:sounds]
