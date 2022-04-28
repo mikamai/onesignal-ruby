@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_support/version'
+require 'active_support/isolated_execution_state' if ActiveSupport::VERSION::MAJOR == 7
 require 'active_support/core_ext/string'
 require 'active_support/json'
 require 'onesignal/version'
