@@ -195,7 +195,7 @@ If you want to send a notification only to specific targets (a particular user's
 pass a `OneSignal::IncludedTargets` to the notification object.
 See [the official documentation](https://documentation.onesignal.com/reference#section-send-to-specific-devices) for a list of available params.
 ```ruby
-included_targets = OneSignal::IncludedTargets.new(include_player_ids: 'test-id-12345')
+included_targets = OneSignal::IncludedTargets.new(include_player_ids: ['test-id-12345'])
 OneSignal::Notification.new(included_targets: included_targets)
 ```
 
