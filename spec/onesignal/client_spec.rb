@@ -18,6 +18,13 @@ describe Client do
       }.not_to raise_error
     end
 
+    it 'raises an error if the response does not have body' do
+      res = double :res, body: nil, status: 204
+      expect {
+        expect(subject.send :handle_errors, res)
+      }.not_to raise_error
+    end
+
     it 'raises an error if the response code is greater than 399' do
       res = double :res, body: '{ "errors": ["Internal Server Error"] }', status: 500
       expect {
@@ -30,6 +37,17 @@ describe Client do
       expect {
         subject.send :handle_errors, res
       }.to raise_error Client::ApiError, 'Error code 401'
+    end
+
+    it 'raises an error if the response is a html' do
+      body = '<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">'\
+        '<title>502 Server Error</title></head><body text=#000000 bgcolor=#ffffff><h1>Error: Server Error</h1>'\
+        '<h2>The server encountered a temporary error and could not complete your request.'\
+        '<p>Please try again in 30 seconds.</h2><h2></h2></body></html>'
+      res = double :res, body: body, status: 502
+      expect {
+        subject.send :handle_errors, res
+      }.to raise_error Client::ApiError, 'Error code 502'
     end
 
     it 'raises an error if the body contains errors' do
