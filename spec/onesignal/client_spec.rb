@@ -29,14 +29,14 @@ describe Client do
       res = double :res, body: '{ "errors": ["Internal Server Error"] }', status: 500
       expect {
         subject.send :handle_errors, res
-      }.to raise_error Client::ApiError, 'Internal Server Error'
+      }.to raise_error Client::ServerError, 'Internal Server Error'
     end
 
     it 'raises an error if the response code is greater than 399 with default error message' do
       res = double :res, body: '{}', status: 401
       expect {
         subject.send :handle_errors, res
-      }.to raise_error Client::ApiError, 'Error code 401'
+      }.to raise_error Client::ClientError, 'Error code 401'
     end
 
     it 'raises an error if the response is a html' do
@@ -47,14 +47,14 @@ describe Client do
       res = double :res, body: body, status: 502
       expect {
         subject.send :handle_errors, res
-      }.to raise_error Client::ApiError, 'Error code 502'
+      }.to raise_error Client::ServerError, 'Error code 502'
     end
 
     it 'raises an error if the body contains errors' do
       res = double :res, body: '{ "errors": ["Internal Server Error"] }', status: 200
       expect {
         subject.send :handle_errors, res
-      }.to raise_error Client::ApiError, 'Internal Server Error'
+      }.to raise_error Client::ClientError, 'Internal Server Error'
     end
   end
 
