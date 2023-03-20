@@ -5,6 +5,8 @@ require 'faraday'
 module OneSignal
   class Client
     class ApiError < RuntimeError; end
+    class ClientError < ApiError; end
+    class ServerError < ApiError; end
 
     def initialize app_id, api_key, api_url
       @app_id = app_id
@@ -46,9 +48,9 @@ module OneSignal
     end
 
     def csv_export extra_fields: nil, last_active_since: nil, segment_name: nil
-      post "players/csv_export?app_id=#{@app_id}", 
-        extra_fields: extra_fields, 
-        last_active_since: last_active_since&.to_i&.to_s, 
+      post "players/csv_export?app_id=#{@app_id}",
+        extra_fields: extra_fields,
+        last_active_since: last_active_since&.to_i&.to_s,
         segment_name: segment_name
     end
 
@@ -91,8 +93,17 @@ module OneSignal
     end
 
     def handle_errors res
-      errors = JSON.parse(res.body).fetch 'errors', []
-      raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || errors.any?
+      json = begin
+               JSON.parse(res.body)
+             rescue JSON::ParserError, TypeError
+               {}
+             end
+      errors = json.fetch('errors', [])
+      if res.status > 499
+        raise ServerError, errors.first || "Error code #{res.status}"
+      elsif errors.any? || res.status > 399
+        raise ClientError, errors.first || "Error code #{res.status}"
+      end
 
       res
     end
