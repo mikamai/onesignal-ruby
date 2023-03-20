@@ -5,6 +5,8 @@ require 'faraday'
 module OneSignal
   class Client
     class ApiError < RuntimeError; end
+    class ClientError < ApiError; end
+    class ServerError < ApiError; end
 
     def initialize app_id, api_key, api_url
       @app_id = app_id
@@ -97,7 +99,11 @@ module OneSignal
                {}
              end
       errors = json.fetch('errors', [])
-      raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || errors.any?
+      if res.status > 499
+        raise ServerError, errors.first || "Error code #{res.status}"
+      elsif errors.any? || res.status > 399
+        raise ClientError, errors.first || "Error code #{res.status}"
+      end
 
       res
     end
