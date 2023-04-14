@@ -18,14 +18,52 @@ describe Client do
       }.not_to raise_error
     end
 
-    it 'raises an error if the response does not have body' do
+    it 'does not raise an error if the response does not have body' do
       res = double :res, body: nil, status: 204
       expect {
         expect(subject.send :handle_errors, res)
       }.not_to raise_error
     end
 
-    it 'raises an error if the response code is greater than 399' do
+    it 'raises an InvalidExternalUserIdsError if the response contains errors' do
+      body = '{
+        "errors": {
+          "invalid_external_user_ids": [
+            "786956"
+          ]
+        }
+      }'
+      res = double :res, body: body, status: 200
+      expect {
+        subject.send :handle_errors, res
+      }.to raise_error Client::InvalidExternalUserIdsError, '["786956"]'
+    end
+
+    it 'raises an InvalidPlayerIdsError if the response contains errors' do
+      body = '{
+        "errors": {
+          "invalid_player_ids" : ["6392d91a-b206-4b7b-a620-cd68e32c3a76"]
+        }
+      }'
+      res = double :res, body: body, status: 200
+      expect {
+        subject.send :handle_errors, res
+      }.to raise_error Client::InvalidPlayerIdsError, '["6392d91a-b206-4b7b-a620-cd68e32c3a76"]'
+    end
+
+    it 'raises an ClientError if the response contains errors' do
+      body = '{
+        "errors": [
+          "Message Notifications must have English language content"
+        ]
+      }'
+      res = double :res, body: body, status: 200
+      expect {
+        subject.send :handle_errors, res
+      }.to raise_error Client::ClientError, 'Message Notifications must have English language content'
+    end
+
+    it 'raises an error if the response code is greater than 499' do
       res = double :res, body: '{ "errors": ["Internal Server Error"] }', status: 500
       expect {
         subject.send :handle_errors, res
@@ -36,7 +74,7 @@ describe Client do
       res = double :res, body: '{}', status: 401
       expect {
         subject.send :handle_errors, res
-      }.to raise_error Client::ClientError, 'Error code 401'
+      }.to raise_error Client::ClientError, 'Error code 401 {}'
     end
 
     it 'raises an error if the response is a html' do

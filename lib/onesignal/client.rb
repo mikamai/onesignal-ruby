@@ -6,7 +6,15 @@ module OneSignal
   class Client
     class ApiError < RuntimeError; end
     class ClientError < ApiError; end
+    class InvalidExternalUserIdsError < ClientError; end
+    class InvalidPlayerIdsError < ClientError; end
+    class TagsLimitError < ClientError; end
     class ServerError < ApiError; end
+
+    ERROR_MESSAGE_MAPPING = {
+      'invalid_external_user_ids' => InvalidExternalUserIdsError,
+      'invalid_player_ids' => InvalidPlayerIdsError
+    }.freeze
 
     def initialize app_id, api_key, api_url
       @app_id = app_id
@@ -101,8 +109,12 @@ module OneSignal
       errors = json.fetch('errors', [])
       if res.status > 499
         raise ServerError, errors.first || "Error code #{res.status}"
-      elsif errors.any? || res.status > 399
-        raise ClientError, errors.first || "Error code #{res.status}"
+      elsif errors.any?
+        error = errors.detect { |key, _v| ERROR_MESSAGE_MAPPING.keys.include?(key) }
+        raise ERROR_MESSAGE_MAPPING[error[0]].new(error[1]) if error
+        raise ClientError, errors.first
+      elsif res.status > 399
+        raise ClientError, errors.first || "Error code #{res.status} #{res.body}"
       end
 
       res
