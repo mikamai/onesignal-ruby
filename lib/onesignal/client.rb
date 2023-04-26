@@ -6,12 +6,14 @@ module OneSignal
   class Client
     class ApiError < RuntimeError; end
     class ClientError < ApiError; end
+    class ApiRateLimitError < ClientError; end
     class InvalidExternalUserIdsError < ClientError; end
     class InvalidPlayerIdsError < ClientError; end
     class TagsLimitError < ClientError; end
     class ServerError < ApiError; end
 
     ERROR_MESSAGE_MAPPING = {
+      'API rate limit exceeded' => ApiRateLimitError,
       'invalid_external_user_ids' => InvalidExternalUserIdsError,
       'invalid_player_ids' => InvalidPlayerIdsError
     }.freeze
@@ -111,7 +113,8 @@ module OneSignal
         raise ServerError, errors.first || "Error code #{res.status}"
       elsif errors.any?
         error = errors.detect { |key, _v| ERROR_MESSAGE_MAPPING.keys.include?(key) }
-        raise ERROR_MESSAGE_MAPPING[error[0]].new(error[1]) if error
+        raise ERROR_MESSAGE_MAPPING[error[0]].new(error[1]) if error && error.is_a?(Array)
+        raise ERROR_MESSAGE_MAPPING[error].new(error) if error
         raise ClientError, errors.first
       elsif res.status > 399
         raise ClientError, errors.first || "Error code #{res.status} #{res.body}"
