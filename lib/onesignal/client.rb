@@ -5,6 +5,18 @@ require 'faraday'
 module OneSignal
   class Client
     class ApiError < RuntimeError; end
+    class ClientError < ApiError; end
+    class ApiRateLimitError < ClientError; end
+    class InvalidExternalUserIdsError < ClientError; end
+    class InvalidPlayerIdsError < ClientError; end
+    class TagsLimitError < ClientError; end
+    class ServerError < ApiError; end
+
+    ERROR_MESSAGE_MAPPING = {
+      'API rate limit exceeded' => ApiRateLimitError,
+      'invalid_external_user_ids' => InvalidExternalUserIdsError,
+      'invalid_player_ids' => InvalidPlayerIdsError
+    }.freeze
 
     def initialize app_id, api_key, api_url
       @app_id = app_id
@@ -46,9 +58,9 @@ module OneSignal
     end
 
     def csv_export extra_fields: nil, last_active_since: nil, segment_name: nil
-      post "players/csv_export?app_id=#{@app_id}", 
-        extra_fields: extra_fields, 
-        last_active_since: last_active_since&.to_i&.to_s, 
+      post "players/csv_export?app_id=#{@app_id}",
+        extra_fields: extra_fields,
+        last_active_since: last_active_since&.to_i&.to_s,
         segment_name: segment_name
     end
 
@@ -91,8 +103,22 @@ module OneSignal
     end
 
     def handle_errors res
-      errors = JSON.parse(res.body).fetch 'errors', []
-      raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || errors.any?
+      json = begin
+               JSON.parse(res.body)
+             rescue JSON::ParserError, TypeError
+               {}
+             end
+      errors = json.fetch('errors', [])
+      if res.status > 499
+        raise ServerError, errors.first || "Error code #{res.status}"
+      elsif errors.any?
+        error = errors.detect { |key, _v| ERROR_MESSAGE_MAPPING.keys.include?(key) }
+        raise ERROR_MESSAGE_MAPPING[error[0]].new(error[1]) if error && error.is_a?(Array)
+        raise ERROR_MESSAGE_MAPPING[error].new(error) if error
+        raise ClientError, errors.first
+      elsif res.status > 399
+        raise ClientError, errors.first || "Error code #{res.status} #{res.body}"
+      end
 
       res
     end
