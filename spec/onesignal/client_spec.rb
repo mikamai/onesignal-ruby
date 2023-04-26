@@ -70,6 +70,13 @@ describe Client do
       }.to raise_error Client::ServerError, 'Internal Server Error'
     end
 
+    it 'raises an ApiRateLimitError if the response contains errors' do
+      res = double :res, body: '{ "errors": ["API rate limit exceeded"] }', status: 429
+      expect {
+        subject.send :handle_errors, res
+      }.to raise_error Client::ApiRateLimitError, 'API rate limit exceeded'
+    end
+
     it 'raises an error if the response code is greater than 399 with default error message' do
       res = double :res, body: '{}', status: 401
       expect {
